@@ -31,7 +31,11 @@ public class UsersDAO {
     }
 
     public UsersDataSet get(String name) throws HibernateException {
-        return (UsersDataSet) session.get(UsersDataSet.class, name);
+        Criteria criteria = session.createCriteria(UsersDataSet.class);
+        long id = ((UsersDataSet) criteria.add(Restrictions.eq("name", name)).uniqueResult()).getId();
+        return (UsersDataSet) session.get(UsersDataSet.class, id);
+
+
         // todo Исправить это место
 
     }

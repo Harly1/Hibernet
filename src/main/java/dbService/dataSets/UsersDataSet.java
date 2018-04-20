@@ -1,5 +1,9 @@
 package dbService.dataSets;
 
+import org.hibernate.annotations.Entity;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Table;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,8 +14,8 @@ import java.io.Serializable;
  *         <p>
  *         Описание курса и лицензия: https://github.com/vitaly-chibrikov/stepic_java_webserver
  */
-@Entity
-@Table(name = "users")
+@javax.persistence.Entity
+@javax.persistence.Table( name = "users")
 public class UsersDataSet implements Serializable {
          private static final long serialVersionUID = -8706689714326132798L;
         @Id

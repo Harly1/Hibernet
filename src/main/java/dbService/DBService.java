@@ -30,19 +30,18 @@ public class DBService {
     private final SessionFactory sessionFactory;
 
     public DBService() {
-        Configuration configuration = getMySqlConfiguration();
+        Configuration configuration = getSqlConfiguration();
         sessionFactory = createSessionFactory(configuration);
     }
 
-    private Configuration getMySqlConfiguration() {
+    private Configuration getSqlConfiguration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(UsersDataSet.class);
-
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/hibernet");
-        configuration.setProperty("hibernate.connection.username", "root");
-        configuration.setProperty("hibernate.connection.password", "krasnov");
+        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
+        configuration.setProperty("hibernate.connection.driver.class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        configuration.setProperty("hibernate.connection.url", "jdbc:sqlserver://localhost:56342;database=Test");
+        configuration.setProperty("hibernate.connection.username", "harly");
+        configuration.setProperty("hibernate.connection.password", "B225b7602");
         configuration.setProperty("hibernate.show_sql", hibernate_show_sql);
         configuration.setProperty("hibernate.hbm2ddl.auto", hibernate_hbm2ddl_auto);
         return configuration;
@@ -50,7 +49,7 @@ public class DBService {
     }
 
 
-    public UsersDataSet getUser(long id) throws DBException {
+/*    public UsersDataSet getUser(long id) throws DBException {
         try {
             Session session = sessionFactory.openSession();
             UsersDAO dao = new UsersDAO(session);
@@ -60,7 +59,7 @@ public class DBService {
         } catch (HibernateException e) {
             throw new DBException(e);
         }
-    }
+    }*/
 
     public UsersDataSet getUser(String login, String password) throws DBException {
         try {

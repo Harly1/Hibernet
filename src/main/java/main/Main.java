@@ -1,7 +1,6 @@
 package main;
 
-
-import accounts.AccountService;
+import accounts.UserProfile;
 import dbService.DBService;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -11,7 +10,6 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlets.SignInServlet;
 import servlets.SignUpServlet;
-
 import java.util.logging.Logger;
 
 /**
@@ -27,8 +25,8 @@ public class Main {
         dbService.printConnectInfo();
 //        AccountService accountService = new AccountService();
 
-  /*accountService.addNewUser(new UserProfile("admin"));
-        accountService.addNewUser(new UserProfile("test"));*/
+        dbService.addUser("admin","admin");
+
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(new SignInServlet(dbService)), "/signin");

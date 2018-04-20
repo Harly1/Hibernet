@@ -22,22 +22,32 @@ public class SignInServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
+
+
         try {
-//            String loginFromBD = accountService.getUserByLogin(login).getLogin();
             String loginFromBD = dbService.getUser(login,password).getLogin();
             String passwordFromBD = dbService.getUser(login,password).getPassword();
-
-            response.setContentType("text/html;charset=utf-8");
-            response.setStatus(200);
-            response.getWriter().println("Authorized: " + login);
-//            response.setStatus(HttpServletResponse.SC_OK);
+            if (login == loginFromBD || password == passwordFromBD){
+                Authorized(request,response,login);
+            } else {
+                Unauthorized(request,response);
+            }
 
         } catch (NullPointerException | DBException e) {
-            response.setContentType("text/html;charset=utf-8");
-            response.setStatus(401);
-            response.getWriter().println("Unauthorized");
+            Unauthorized(request,response);
             e.printStackTrace();
-//            response.setStatus(HttpServletResponse.SC_OK);
         }
+
+    }
+
+    public static void Unauthorized(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(401);
+        response.getWriter().println("Unauthorized");
+    }
+    public static void Authorized(HttpServletRequest request, HttpServletResponse response, String login) throws IOException {
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(200);
+        response.getWriter().println("Authorized: " + login);
     }
 }
