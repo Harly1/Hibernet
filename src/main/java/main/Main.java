@@ -23,8 +23,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         DBService dbService = new DBService();
         dbService.printConnectInfo();
-//        AccountService accountService = new AccountService();
-
         dbService.addUser("admin","admin");
 
 

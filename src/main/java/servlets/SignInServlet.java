@@ -27,7 +27,8 @@ public class SignInServlet extends HttpServlet {
         try {
             String loginFromBD = dbService.getUser(login,password).getLogin();
             String passwordFromBD = dbService.getUser(login,password).getPassword();
-            if (login == loginFromBD || password == passwordFromBD){
+
+            if (login.equals(loginFromBD) && password.equals(passwordFromBD)){
                 Authorized(request,response,login);
             } else {
                 Unauthorized(request,response);
