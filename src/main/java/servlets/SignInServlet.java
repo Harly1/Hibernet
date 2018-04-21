@@ -3,6 +3,7 @@ package servlets;
 import dbService.DBException;
 import dbService.DBService;
 import dbService.dataSets.UsersDataSet;
+import org.hibernate.HibernateException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,33 +23,29 @@ public class SignInServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
+        String loginFromBD = dbService.getUser(login, password).getLogin();
+        String passwordFromBD = dbService.getUser(login, password).getPassword();
 
-
-        try {
-            String loginFromBD = dbService.getUser(login,password).getLogin();
-            String passwordFromBD = dbService.getUser(login,password).getPassword();
-
-            if (login.equals(loginFromBD) && password.equals(passwordFromBD)){
-                Authorized(request,response,login);
+        if (loginFromBD != null || passwordFromBD != null) {
+            if (login.equals(loginFromBD) && password.equals(passwordFromBD)) {
+                Authorized(request, response, login);
             } else {
-                Unauthorized(request,response);
+                Unauthorized(request, response);
             }
-
-        } catch (NullPointerException | DBException e) {
-            Unauthorized(request,response);
-            e.printStackTrace();
         }
 
     }
 
-    public static void Unauthorized(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public static void Unauthorized (HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(401);
         response.getWriter().println("Unauthorized");
     }
-    public static void Authorized(HttpServletRequest request, HttpServletResponse response, String login) throws IOException {
+    public static void Authorized (HttpServletRequest request, HttpServletResponse response, String login) throws IOException {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(200);
         response.getWriter().println("Authorized: " + login);
     }
 }
+
+

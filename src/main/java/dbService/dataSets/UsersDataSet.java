@@ -67,10 +67,18 @@ public class UsersDataSet implements Serializable {
         }
 
         public String getLogin() {
-            return this.name;
+            if(this.name ==null){
+                return null;
+            } else {
+                return this.name;
+            }
         }
 
         public String getPassword() {
-            return this.password;
+            if(this.password == null){
+                return null;
+            } else {
+                return this.password;
+            }
         }
 }

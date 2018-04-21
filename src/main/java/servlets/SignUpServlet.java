@@ -30,12 +30,9 @@ public class SignUpServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);*/
 
         } else {
-            try {
-                dbService.addUser(login,password);
-            } catch (DBException e) {
-                e.printStackTrace();
-            }
-/*            response.setContentType("text/html;charset=utf-8");
+
+            dbService.addUser(login,password);
+/*           response.setContentType("text/html;charset=utf-8");
             response.getWriter().println("Ok");
             response.setStatus(HttpServletResponse.SC_OK);*/
         }

@@ -34,10 +34,6 @@ public class UsersDAO {
         Criteria criteria = session.createCriteria(UsersDataSet.class);
         long id = ((UsersDataSet) criteria.add(Restrictions.eq("name", name)).uniqueResult()).getId();
         return (UsersDataSet) session.get(UsersDataSet.class, id);
-
-
-        // todo Исправить это место
-
     }
 
     public long getUserId(String name) throws HibernateException {
